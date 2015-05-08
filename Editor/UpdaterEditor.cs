@@ -68,7 +68,7 @@ namespace RendererUpdate {
 
         #region METHODS
 
-        [MenuItem("Component/MyNamespace/Updater")]
+        [MenuItem("Component/RendererUpdate")]
         private static void AddUpdaterComponent() {
             if (Selection.activeGameObject != null) {
                 Selection.activeGameObject.AddComponent(typeof(Updater));
