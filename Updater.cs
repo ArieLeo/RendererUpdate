@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 namespace RendererUpdate {
 
@@ -25,6 +27,10 @@ namespace RendererUpdate {
 
         [SerializeField]
         private RendererType rendererType;
+
+        [SerializeField]
+        private List<ActionSlot> actions; 
+
         #endregion
 
         #region INSPECTOR FIELDS
@@ -39,6 +45,11 @@ namespace RendererUpdate {
         public RendererType RendererType {
             get { return rendererType; }
             set { rendererType = value; }
+        }
+
+        public List<ActionSlot> Actions {
+            get { return actions; }
+            set { actions = value; }
         }
 
         #endregion
@@ -72,4 +83,57 @@ namespace RendererUpdate {
         #endregion
 
     }
+
+    // todo move to separate file
+    public enum RendererAction {
+
+        SetRenderingMode,
+
+        // Increase transparency.
+        LerpAlphaIn,
+
+        // Decrease transparency.
+        LerpAlphaOut
+
+    }
+
+    // todo move to separate file
+    public sealed class ActionSlot {
+
+        private RendererAction action;
+
+        private BlendMode renderingMode;
+
+        private float alphaInValue;
+
+        private float alphaOutValue;
+
+        public RendererAction Action {
+            get { return action; }
+            set { action = value; }
+        }
+
+        public BlendMode RenderingMode {
+            get { return renderingMode; }
+            set { renderingMode = value; }
+        }
+
+        /// <summary>
+        /// End alpha value in LerpAlphaIn mode.
+        /// </summary>
+        public float AlphaInValue {
+            get { return alphaInValue; }
+            set { alphaInValue = value; }
+        }
+
+        /// <summary>
+        /// End alpha value in LerpAlphaOut mode.
+        /// </summary>
+        public float AlphaOutValue {
+            get { return alphaOutValue; }
+            set { alphaOutValue = value; }
+        }
+
+    }
+
 }
