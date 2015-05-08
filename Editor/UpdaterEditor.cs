@@ -13,6 +13,8 @@ namespace RendererUpdate {
 
         #region SERIALIZED PROPERTIES
 
+        private SerializedProperty targetGo;
+
         #endregion SERIALIZED PROPERTIES
 
         #region UNITY MESSAGES
@@ -21,13 +23,23 @@ namespace RendererUpdate {
             serializedObject.Update();
 
             DrawVersionLabel();
+            DrawTargetGoField();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawTargetGoField() {
+            EditorGUILayout.PropertyField(
+                targetGo,
+                new GUIContent(
+                    "Target",
+                    "Game object that contains the renderer to update."));
         }
 
         private void OnEnable() {
             Script = (Updater)target;
 
+            targetGo = serializedObject.FindProperty("targetGo");
         }
 
         #endregion UNITY MESSAGES

@@ -16,12 +16,20 @@ namespace RendererUpdate {
         #endregion
 
         #region FIELDS
+
+        [SerializeField]
+        private GameObject targetGo;
         #endregion
 
         #region INSPECTOR FIELDS
         #endregion
 
         #region PROPERTIES
+        public GameObject TargetGo {
+            get { return targetGo; }
+            set { targetGo = value; }
+        }
+
         #endregion
 
         #region UNITY MESSAGES
