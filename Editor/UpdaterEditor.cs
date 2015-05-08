@@ -14,6 +14,7 @@ namespace RendererUpdate {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty targetGo;
+        private SerializedProperty rendererType;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -24,10 +25,20 @@ namespace RendererUpdate {
 
             DrawVersionLabel();
             DrawTargetGoField();
+            DrawRendererTypeDropdown();
 
             serializedObject.ApplyModifiedProperties();
         }
+        private void OnEnable() {
+            Script = (Updater)target;
 
+            targetGo = serializedObject.FindProperty("targetGo");
+            rendererType = serializedObject.FindProperty("rendererType");
+        }
+
+        #endregion UNITY MESSAGES
+
+        #region INSPECTOR
         private void DrawTargetGoField() {
             EditorGUILayout.PropertyField(
                 targetGo,
@@ -36,15 +47,14 @@ namespace RendererUpdate {
                     "Game object that contains the renderer to update."));
         }
 
-        private void OnEnable() {
-            Script = (Updater)target;
-
-            targetGo = serializedObject.FindProperty("targetGo");
+        private void DrawRendererTypeDropdown() {
+            EditorGUILayout.PropertyField(
+                rendererType,
+                new GUIContent(
+                    "Renderer Type",
+                    "Type of the renderer component."));
         }
 
-        #endregion UNITY MESSAGES
-
-        #region INSPECTOR
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(

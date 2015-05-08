@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace RendererUpdate {
 
+    // todo move to separate file
+    public enum RendererType { MeshRenderer }
+
     public sealed class Updater : MonoBehaviour {
 
         #region CONSTANTS
@@ -19,6 +22,9 @@ namespace RendererUpdate {
 
         [SerializeField]
         private GameObject targetGo;
+
+        [SerializeField]
+        private RendererType rendererType;
         #endregion
 
         #region INSPECTOR FIELDS
@@ -28,6 +34,11 @@ namespace RendererUpdate {
         public GameObject TargetGo {
             get { return targetGo; }
             set { targetGo = value; }
+        }
+
+        public RendererType RendererType {
+            get { return rendererType; }
+            set { rendererType = value; }
         }
 
         #endregion
