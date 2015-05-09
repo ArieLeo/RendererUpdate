@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System.Reflection;
+using Rotorz.ReorderableList;
+using UnityEditor;
 using UnityEngine;
 
 namespace RendererUpdate {
@@ -15,6 +17,7 @@ namespace RendererUpdate {
 
         private SerializedProperty targetGo;
         private SerializedProperty rendererType;
+        private SerializedProperty actions;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -26,6 +29,7 @@ namespace RendererUpdate {
             DrawVersionLabel();
             DrawTargetGoField();
             DrawRendererTypeDropdown();
+            DrawActionSlots();
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -34,11 +38,17 @@ namespace RendererUpdate {
 
             targetGo = serializedObject.FindProperty("targetGo");
             rendererType = serializedObject.FindProperty("rendererType");
+            actions = serializedObject.FindProperty("actions");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR
+        private void DrawActionSlots() {
+            ReorderableListGUI.Title("Actions");
+            ReorderableListGUI.ListField(actions);
+        }
+
         private void DrawTargetGoField() {
             EditorGUILayout.PropertyField(
                 targetGo,

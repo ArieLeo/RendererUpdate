@@ -98,14 +98,19 @@ namespace RendererUpdate {
     }
 
     // todo move to separate file
+    [System.Serializable]
     public sealed class ActionSlot {
 
+        [SerializeField]
         private RendererAction action;
 
+        [SerializeField]
         private BlendMode renderingMode;
 
+        [SerializeField]
         private float alphaInValue;
 
+        [SerializeField]
         private float alphaOutValue;
 
         public RendererAction Action {

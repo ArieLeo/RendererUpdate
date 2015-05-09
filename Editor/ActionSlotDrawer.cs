@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RendererUpdate {
 
     [CustomPropertyDrawer(typeof(ActionSlot))]
-    public sealed class ActionSlot : PropertyDrawer {
+    public sealed class ActionSlotDrawer : PropertyDrawer {
 
         #region CONSTANTS
 
@@ -61,11 +61,11 @@ namespace RendererUpdate {
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x,
-                    pos.y + 3 * (PropHeight + PropMargin),
+                    pos.y,
                     pos.width,
                     PropHeight),
                 prop,
-                new GUIContent("Example Property", ""));
+                new GUIContent("Action Type", ""));
         }
 
         #endregion
