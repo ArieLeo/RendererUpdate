@@ -18,7 +18,7 @@ namespace RendererUpdate {
         private const int RowSpace = 8;
 
         // Number of rows.
-        private const int Rows = 1;
+        private const int Rows = 2;
 
         #endregion
 
@@ -48,6 +48,21 @@ namespace RendererUpdate {
                 prop.FindPropertyRelative("alphaOutValue");
 
             DrawActionDropdown(pos, action);
+            DrawRenderingMode(pos, renderingMode);
+        }
+
+        private void DrawRenderingMode(
+            Rect pos,
+            SerializedProperty renderingMode) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.width,
+                    PropHeight),
+                renderingMode,
+                new GUIContent("Mode", "Rendering Mode"));
         }
 
         #endregion
@@ -56,7 +71,7 @@ namespace RendererUpdate {
 
         private void DrawActionDropdown(
             Rect pos,
-            SerializedProperty prop) {
+            SerializedProperty action) {
 
             EditorGUI.PropertyField(
                 new Rect(
@@ -64,7 +79,7 @@ namespace RendererUpdate {
                     pos.y,
                     pos.width,
                     PropHeight),
-                prop,
+                action,
                 new GUIContent("Action Type", ""));
         }
 
