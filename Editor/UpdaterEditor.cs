@@ -17,7 +17,7 @@ namespace RendererUpdate {
 
         private SerializedProperty targetGo;
         private SerializedProperty rendererType;
-        private SerializedProperty actions;
+        private SerializedProperty actionSlots;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -38,7 +38,7 @@ namespace RendererUpdate {
 
             targetGo = serializedObject.FindProperty("targetGo");
             rendererType = serializedObject.FindProperty("rendererType");
-            actions = serializedObject.FindProperty("actions");
+            actionSlots = serializedObject.FindProperty("actionSlots");
         }
 
         #endregion UNITY MESSAGES
@@ -46,7 +46,7 @@ namespace RendererUpdate {
         #region INSPECTOR
         private void DrawActionSlots() {
             ReorderableListGUI.Title("Actions");
-            ReorderableListGUI.ListField(actions);
+            ReorderableListGUI.ListField(actionSlots);
         }
 
         private void DrawTargetGoField() {

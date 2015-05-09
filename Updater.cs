@@ -25,7 +25,7 @@ namespace RendererUpdate {
         private RendererType rendererType;
 
         [SerializeField]
-        private List<ActionSlot> actions; 
+        private List<ActionSlot> actionSlots; 
 
         #endregion
 
@@ -43,9 +43,9 @@ namespace RendererUpdate {
             set { rendererType = value; }
         }
 
-        public List<ActionSlot> Actions {
-            get { return actions; }
-            set { actions = value; }
+        public List<ActionSlot> ActionSlots {
+            get { return actionSlots; }
+            set { actionSlots = value; }
         }
 
         #endregion
