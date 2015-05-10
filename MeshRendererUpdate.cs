@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿#define DEBUG_LOGGER
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using FileLogger;
 
 namespace RendererUpdate {
 
-    public sealed class Updater : MonoBehaviour {
+    public sealed class MeshRendererUpdate : MonoBehaviour {
 
         #region CONSTANTS
 
@@ -76,6 +79,51 @@ namespace RendererUpdate {
         #endregion
 
         #region METHODS
+
+        public void UpdateRenderer() {
+            foreach (var actionSlot in ActionSlots) {
+                PerformAction(actionSlot);
+            }
+        }
+
+        private void PerformAction(ActionSlot actionSlot) {
+            Logger.LogCall();
+            switch (RendererType) {
+                case RendererType.MeshRenderer:
+                    HandleMeshRenderer(actionSlot);
+                    break;
+            }
+        }
+
+        private void HandleMeshRenderer(ActionSlot actionSlot) {
+            switch (actionSlot.Action) {
+                case RendererAction.SetRenderingMode:
+                    // todo extract
+                    var material = GetMaterial(TargetGo, RendererType);
+
+                    Utilities.SetupMaterialWithBlendMode(
+                        material,
+                        actionSlot.RenderingMode);
+
+                    break;
+            }
+        }
+
+        private static Material GetMaterial(
+            GameObject targetGo,
+            RendererType rendererType) {
+            switch (rendererType) {
+
+                case RendererType.MeshRenderer:
+                    var rendererCo = targetGo.GetComponent<MeshRenderer>();
+                    var material = rendererCo.material;
+
+                    return material;
+            }
+
+            return null;
+        }
+
         #endregion
 
     }

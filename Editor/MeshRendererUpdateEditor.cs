@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace RendererUpdate {
 
-    [CustomEditor(typeof(Updater))]
-    public sealed class UpdaterEditor : Editor {
+    [CustomEditor(typeof(MeshRendererUpdate))]
+    public sealed class MeshRendererUpdateEditor : Editor {
         #region FIELDS
 
-        private Updater Script { get; set; }
+        private MeshRendererUpdate Script { get; set; }
 
         #endregion FIELDS
 
@@ -34,7 +34,7 @@ namespace RendererUpdate {
             serializedObject.ApplyModifiedProperties();
         }
         private void OnEnable() {
-            Script = (Updater)target;
+            Script = (MeshRendererUpdate)target;
 
             targetGo = serializedObject.FindProperty("targetGo");
             rendererType = serializedObject.FindProperty("rendererType");
@@ -70,8 +70,8 @@ namespace RendererUpdate {
             EditorGUILayout.LabelField(
                 string.Format(
                     "{0} ({1})",
-                    Updater.VERSION,
-                    Updater.EXTENSION));
+                    MeshRendererUpdate.VERSION,
+                    MeshRendererUpdate.EXTENSION));
         }
 
         #endregion INSPECTOR
@@ -81,7 +81,7 @@ namespace RendererUpdate {
         [MenuItem("Component/RendererUpdate")]
         private static void AddUpdaterComponent() {
             if (Selection.activeGameObject != null) {
-                Selection.activeGameObject.AddComponent(typeof(Updater));
+                Selection.activeGameObject.AddComponent(typeof(MeshRendererUpdate));
             }
         }
 
