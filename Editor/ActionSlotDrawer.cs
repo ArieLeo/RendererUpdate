@@ -55,7 +55,7 @@ namespace RendererUpdate {
             SerializedProperty action,
             SerializedProperty lerpSpeed) {
 
-            if (action.enumValueIndex != (int) RendererAction.LerpAlphaIn) {
+            if (action.enumValueIndex != (int) RendererAction.LerpAlpha) {
                 return;
             }
 
@@ -76,7 +76,7 @@ namespace RendererUpdate {
             SerializedProperty action,
             SerializedProperty lerpInValue) {
 
-            if (action.enumValueIndex != (int) RendererAction.LerpAlphaIn) {
+            if (action.enumValueIndex != (int) RendererAction.LerpAlpha) {
                 return;
             }
 

@@ -89,7 +89,7 @@ namespace RendererUpdate {
                     ApplyRenderingMode(actionSlot.RenderingMode);
 
                     break;
-                case RendererAction.LerpAlphaIn:
+                case RendererAction.LerpAlpha:
                     Logger.LogCall(this);
 
                     StartCoroutine(LerpAlpha(actionSlot.LerpValue));

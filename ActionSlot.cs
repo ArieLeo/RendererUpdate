@@ -29,7 +29,7 @@ namespace RendererUpdate {
         }
 
         /// <summary>
-        /// End alpha value in LerpAlphaIn mode.
+        /// End alpha value in LerpAlpha mode.
         /// </summary>
         public float LerpValue {
             get { return lerpValue; }
