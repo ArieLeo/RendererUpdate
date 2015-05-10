@@ -42,17 +42,15 @@ namespace RendererUpdate {
             var action = prop.FindPropertyRelative("action");
             var renderingMode =
                 prop.FindPropertyRelative("renderingMode");
-            // todo rename to lerpOutValue
-            var alphaInValue =
-                prop.FindPropertyRelative("alphaInValue");
-            // todo rename to lerpInValue
-            var alphaOutValue =
-                prop.FindPropertyRelative("alphaOutValue");
+            var lerpInValue =
+                prop.FindPropertyRelative("lerpInValue");
+            var lerpOutValue =
+                prop.FindPropertyRelative("lerpOutValue");
 
             DrawActionDropdown(pos, action);
             HandleDrawRenderingMode(pos, action, renderingMode);
-            HandleDrawLerpInValueField(pos, action, alphaInValue);
-            HandleDrawLerpOutValueField(pos, action, alphaOutValue);
+            HandleDrawLerpInValueField(pos, action, lerpInValue);
+            HandleDrawLerpOutValueField(pos, action, lerpOutValue);
         }
 
         private void HandleDrawLerpInValueField(
