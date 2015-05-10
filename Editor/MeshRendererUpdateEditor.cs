@@ -20,6 +20,7 @@ namespace RendererUpdate {
         private SerializedProperty renderingMode;
         private SerializedProperty lerpValue;
         private SerializedProperty lerpSpeed;
+        private SerializedProperty lerpFinishCallback;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -33,12 +34,25 @@ namespace RendererUpdate {
             HandleDrawActionDropdown();
             HandleDrawRenderingModeDropdown();
             HandleDrawLerpValueSlider();
-            HandleDrawLerpSpeedValueSlider();
+            HandleDrawLerpSpeedValueField();
+            HandleDrawLerpFinishCallback();
 
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void HandleDrawLerpSpeedValueSlider() {
+        private void HandleDrawLerpFinishCallback() {
+            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                lerpFinishCallback,
+                new GUIContent(
+                    "Callback",
+                    "Callback executed when lerp method ends."));
+        }
+
+        private void HandleDrawLerpSpeedValueField() {
             if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
                 return;
             }
@@ -50,6 +64,7 @@ namespace RendererUpdate {
                     ""));
         }
 
+        // todo make slider
         private void HandleDrawLerpValueSlider() {
             if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
                 return;
@@ -90,6 +105,8 @@ namespace RendererUpdate {
             renderingMode = serializedObject.FindProperty("renderingMode");
             lerpValue = serializedObject.FindProperty("lerpValue");
             lerpSpeed = serializedObject.FindProperty("lerpSpeed");
+            lerpFinishCallback =
+                serializedObject.FindProperty("lerpFinishCallback");
         }
 
         #endregion UNITY MESSAGES
