@@ -103,16 +103,21 @@ namespace RendererUpdate {
             }
         }
 
+        /// <summary>
+        /// Lerp alpha of the renderer's material to a specified value.
+        /// </summary>
+        /// <param name="lerpValue"></param>
+        /// <returns></returns>
         private IEnumerator LerpAlpha(float lerpValue) {
             var material = GetMaterial(TargetGo);
-            var endValueAchieved = false;
+            var endValueReached = false;
 
-            while (!endValueAchieved) {
+            while (!endValueReached) {
                 Logger.LogString("{1}, lerp alpha: {0}",
                     material.color.a,
-                    endValueAchieved);
+                    endValueReached);
 
-                endValueAchieved = Utilities.FloatsEqual(
+                endValueReached = Utilities.FloatsEqual(
                     material.color.a,
                     lerpValue,
                     0.01f);
