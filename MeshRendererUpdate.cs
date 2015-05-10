@@ -92,7 +92,9 @@ namespace RendererUpdate {
                 case RendererAction.LerpAlpha:
                     Logger.LogCall(this);
 
-                    StartCoroutine(LerpAlpha(actionSlot.LerpValue));
+                    StartCoroutine(LerpAlpha(
+                        actionSlot.LerpValue,
+                        actionSlot.LerpSpeed));
 
                     break;
             }
@@ -113,7 +115,7 @@ namespace RendererUpdate {
         /// </summary>
         /// <param name="lerpValue"></param>
         /// <returns></returns>
-        private IEnumerator LerpAlpha(float lerpValue) {
+        private IEnumerator LerpAlpha(float lerpValue, float lerpSpeed) {
             var material = Utilities.GetMaterial(TargetGo);
             var endValueReached = false;
 
@@ -125,14 +127,12 @@ namespace RendererUpdate {
                 endValueReached = Utilities.FloatsEqual(
                     material.color.a,
                     lerpValue,
-                    // todo create inspector field: Lerp Speed
-                    0.01f);
+                    lerpSpeed);
 
                  var lerpedAlpha = Mathf.Lerp(
                     material.color.a,
                     lerpValue,
-                    // todo create inspector field: Lerp Speed
-                    0.01f);
+                    lerpSpeed * Time.deltaTime);
 
                 material.color = new Color(
                     material.color.r,
