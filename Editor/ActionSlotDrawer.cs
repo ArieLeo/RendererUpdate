@@ -52,6 +52,7 @@ namespace RendererUpdate {
             DrawActionDropdown(pos, action);
             HandleDrawRenderingMode(pos, action, renderingMode);
             HandleDrawLerpInValueField(pos, action, alphaInValue);
+            HandleDrawLerpOutValueField(pos, action, alphaOutValue);
         }
 
         private void HandleDrawLerpInValueField(
@@ -71,6 +72,27 @@ namespace RendererUpdate {
                     PropHeight),
                 new GUIContent("Lerp Value", "End value."),
                 lerpInValue.floatValue,
+                0,
+                255);
+        }
+
+        private void HandleDrawLerpOutValueField(
+            Rect pos,
+            SerializedProperty action,
+            SerializedProperty lerpOutValue) {
+
+            if (action.enumValueIndex != (int) RendererAction.LerpAlphaOut) {
+                return;
+            }
+
+            lerpOutValue.floatValue = EditorGUI.Slider(
+                new Rect(
+                    pos.x,
+                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.width,
+                    PropHeight),
+                new GUIContent("Lerp Value", "End value."),
+                lerpOutValue.floatValue,
                 0,
                 255);
         }
