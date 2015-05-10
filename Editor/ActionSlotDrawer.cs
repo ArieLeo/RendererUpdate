@@ -51,10 +51,10 @@ namespace RendererUpdate {
 
             DrawActionDropdown(pos, action);
             HandleDrawRenderingMode(pos, action, renderingMode);
-            HandleDrawLerpValueField(pos, action, alphaInValue);
+            HandleDrawLerpInValueField(pos, action, alphaInValue);
         }
 
-        private void HandleDrawLerpValueField(
+        private void HandleDrawLerpInValueField(
             Rect pos,
             SerializedProperty action,
             SerializedProperty lerpInValue) {
