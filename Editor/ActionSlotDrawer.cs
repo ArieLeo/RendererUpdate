@@ -42,13 +42,37 @@ namespace RendererUpdate {
             var action = prop.FindPropertyRelative("action");
             var renderingMode =
                 prop.FindPropertyRelative("renderingMode");
+            // todo rename to lerpOutValue
             var alphaInValue =
                 prop.FindPropertyRelative("alphaInValue");
+            // todo rename to lerpInValue
             var alphaOutValue =
                 prop.FindPropertyRelative("alphaOutValue");
 
             DrawActionDropdown(pos, action);
             HandleDrawRenderingMode(pos, action, renderingMode);
+            HandleDrawLerpValueField(pos, action, alphaInValue);
+        }
+
+        private void HandleDrawLerpValueField(
+            Rect pos,
+            SerializedProperty action,
+            SerializedProperty lerpInValue) {
+
+            if (action.enumValueIndex != (int) RendererAction.LerpAlphaIn) {
+                return;
+            }
+
+            lerpInValue.floatValue = EditorGUI.Slider(
+                new Rect(
+                    pos.x,
+                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.width,
+                    PropHeight),
+                new GUIContent("Lerp Value", "End value."),
+                lerpInValue.floatValue,
+                0,
+                255);
         }
 
         private void HandleDrawRenderingMode(
