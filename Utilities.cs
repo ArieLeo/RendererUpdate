@@ -157,6 +157,13 @@ namespace RendererUpdate {
             }
         }
 
+        public static Material GetMaterial(GameObject targetGo) {
+            var rendererCo = targetGo.GetComponent<MeshRenderer>();
+            var material = rendererCo.material;
+
+            return material;
+        }
+
     }
 
 }

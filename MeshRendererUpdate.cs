@@ -87,7 +87,7 @@ namespace RendererUpdate {
                 case RendererAction.SetRenderingMode:
                     Logger.LogCall(this);
                     // todo extract
-                    material = GetMaterial(TargetGo);
+                    material = Utilities.GetMaterial(TargetGo);
 
                     Utilities.SetupMaterialWithBlendMode(
                         material,
@@ -109,7 +109,7 @@ namespace RendererUpdate {
         /// <param name="lerpValue"></param>
         /// <returns></returns>
         private IEnumerator LerpAlpha(float lerpValue) {
-            var material = GetMaterial(TargetGo);
+            var material = Utilities.GetMaterial(TargetGo);
             var endValueReached = false;
 
             while (!endValueReached) {
@@ -136,14 +136,6 @@ namespace RendererUpdate {
 
                 yield return null;
             }
-        }
-
-        // todo move to Utilities
-        private static Material GetMaterial(GameObject targetGo) {
-            var rendererCo = targetGo.GetComponent<MeshRenderer>();
-            var material = rendererCo.material;
-
-            return material;
         }
 
         #endregion
