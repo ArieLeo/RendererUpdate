@@ -48,12 +48,17 @@ namespace RendererUpdate {
                 prop.FindPropertyRelative("alphaOutValue");
 
             DrawActionDropdown(pos, action);
-            DrawRenderingMode(pos, renderingMode);
+            HandleDrawRenderingMode(pos, action, renderingMode);
         }
 
-        private void DrawRenderingMode(
+        private void HandleDrawRenderingMode(
             Rect pos,
+            SerializedProperty action,
             SerializedProperty renderingMode) {
+
+            if (action.enumValueIndex != (int) RendererAction.SetRenderingMode) {
+                return;
+            }
 
             EditorGUI.PropertyField(
                 new Rect(

@@ -4,10 +4,10 @@
 
         SetRenderingMode,
 
-        // Increase transparency.
+        // Decrease transparency.
         LerpAlphaIn,
 
-        // Decrease transparency.
+        // Increase transparency.
         LerpAlphaOut
 
     }
