@@ -90,31 +90,12 @@ namespace RendererUpdate {
             }
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks>
-        ///     http://stackoverflow.com/questions/3874627/floating-point-comparison-functions-for-c-sharp
-        /// </remarks>
-        public static bool FloatsEqual(float a, float b, float epsilon) {
-            var absA = Math.Abs(a);
-            var absB = Math.Abs(b);
-            var diff = Math.Abs(a - b);
+        public static bool FloatsEqual(
+            float a,
+            float b,
+            float epsilon = 0.001f) {
 
-            if (a == b) {
-                // shortcut, handles infinities
-                return true;
-            }
-            if (a == 0 || b == 0) {
-                // a or b is zero or both are extremely close to it relative
-                // error is less meaningful here
-                return diff < (epsilon * Single.MinValue);
-            }
-            // use relative error
-            return diff / (absA + absB) < epsilon;
+            return Mathf.Abs(a - b) < epsilon;
         }
 
         public static object InvokeMethodWithReflection(

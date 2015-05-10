@@ -3,6 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using FileLogger;
 using uFAction;
 
@@ -96,27 +97,41 @@ namespace RendererUpdate {
                 case RendererAction.LerpAlphaIn:
                     Logger.LogCall(this);
 
-                    LerpAlpha(actionSlot.LerpValue);
+                    StartCoroutine(LerpAlpha(actionSlot.LerpValue));
 
                     break;
             }
         }
 
-        private void LerpAlpha(float lerpToValue) {
-            Material material;
-            material = GetMaterial(TargetGo);
+        // todo rename param to lerpValue
+        private IEnumerator LerpAlpha(float lerpToValue) {
+            var material = GetMaterial(TargetGo);
+            var endValueAchieved = false;
 
-            var lerpedAlpha = Mathf.Lerp(
-                material.color.a,
-                lerpToValue,
-                // todo create inspector field: Lerp Speed
-                0.05f);
+            while (!endValueAchieved) {
+                Logger.LogString("{1}, lerp alpha: {0}",
+                    material.color.a,
+                    endValueAchieved);
 
-            material.color = new Color(
-                material.color.r,
-                material.color.g,
-                material.color.b,
-                lerpedAlpha);
+                endValueAchieved = Utilities.FloatsEqual(
+                    material.color.a,
+                    lerpToValue,
+                    0.01f);
+
+                 var lerpedAlpha = Mathf.Lerp(
+                    material.color.a,
+                    lerpToValue,
+                    // todo create inspector field: Lerp Speed
+                    0.01f);
+
+                material.color = new Color(
+                    material.color.r,
+                    material.color.g,
+                    material.color.b,
+                    lerpedAlpha);
+
+                yield return null;
+            }
         }
 
         // todo move to Utilities
