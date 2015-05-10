@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using FileLogger;
+using uFAction;
 
 namespace RendererUpdate {
 
@@ -79,17 +80,43 @@ namespace RendererUpdate {
         }
 
         private void PerformAction(ActionSlot actionSlot) {
+            Material material;
+
             switch (actionSlot.Action) {
                 case RendererAction.SetRenderingMode:
+                    Logger.LogCall(this);
                     // todo extract
-                    var material = GetMaterial(TargetGo);
+                    material = GetMaterial(TargetGo);
 
                     Utilities.SetupMaterialWithBlendMode(
                         material,
                         actionSlot.RenderingMode);
 
                     break;
+                case RendererAction.LerpAlphaIn:
+                    Logger.LogCall(this);
+
+                    LerpAlpha(actionSlot.LerpInValue);
+
+                    break;
             }
+        }
+
+        private void LerpAlpha(float lerpToValue) {
+            Material material;
+            material = GetMaterial(TargetGo);
+
+            var lerpedAlpha = Mathf.Lerp(
+                material.color.a,
+                lerpToValue,
+                // todo create inspector field: Lerp Speed
+                0.05f);
+
+            material.color = new Color(
+                material.color.r,
+                material.color.g,
+                material.color.b,
+                lerpedAlpha);
         }
 
         // todo move to Utilities
