@@ -29,12 +29,29 @@ namespace RendererUpdate {
         [SerializeField]
         private GameObject targetGo;
 
-        [SerializeField]
-        private List<ActionSlot> actionSlots;
-
         #endregion
 
         #region INSPECTOR FIELDS
+
+        [SerializeField]
+        private RendererAction action;
+
+        [SerializeField]
+        private BlendMode renderingMode;
+
+        [SerializeField]
+        private float lerpValue;
+
+        [SerializeField]
+        private float lerpSpeed;
+
+        /// <summary>
+        /// Callback executed when <c>LerpAlpha</c> coroutine ends its
+        /// execution by itself.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent lerpFinishCallback; 
+
         #endregion
 
         #region PROPERTIES
@@ -43,9 +60,33 @@ namespace RendererUpdate {
             set { targetGo = value; }
         }
 
-        public List<ActionSlot> ActionSlots {
-            get { return actionSlots; }
-            set { actionSlots = value; }
+        public RendererAction Action {
+            get { return action; }
+            set { action = value; }
+        }
+
+        public BlendMode RenderingMode {
+            get { return renderingMode; }
+            set { renderingMode = value; }
+        }
+
+        public float LerpValue {
+            get { return lerpValue; }
+            set { lerpValue = value; }
+        }
+
+        public float LerpSpeed {
+            get { return lerpSpeed; }
+            set { lerpSpeed = value; }
+        }
+
+        /// <summary>
+        /// Callback executed when <c>LerpAlpha</c> coroutine ends its
+        /// execution by itself.
+        /// </summary>
+        public UnityEvent LerpFinishCallback {
+            get { return lerpFinishCallback; }
+            set { lerpFinishCallback = value; }
         }
 
         #endregion
@@ -78,25 +119,20 @@ namespace RendererUpdate {
         #region METHODS
 
         public void UpdateRenderer() {
-            foreach (var actionSlot in ActionSlots) {
-                PerformAction(actionSlot);
-            }
+            PerformAction();
         }
 
-        private void PerformAction(ActionSlot actionSlot) {
-            switch (actionSlot.Action) {
+        private void PerformAction() {
+            switch (Action) {
                 case RendererAction.SetRenderingMode:
                     Logger.LogCall(this);
-                    ApplyRenderingMode(actionSlot.RenderingMode);
+                    ApplyRenderingMode(RenderingMode);
 
                     break;
                 case RendererAction.LerpAlpha:
                     Logger.LogCall(this);
 
-                    StartCoroutine(LerpAlpha(
-                        actionSlot.LerpFinishCallback,
-                        actionSlot.LerpValue,
-                        actionSlot.LerpSpeed));
+                    StartCoroutine(LerpAlpha());
 
                     break;
             }
@@ -115,9 +151,7 @@ namespace RendererUpdate {
         /// </summary>
         /// <param name="lerpValue"></param>
         /// <returns></returns>
-        private IEnumerator LerpAlpha(
-            UnityEvent lerpFinishCallback,
-            float lerpValue, float lerpSpeed) {
+        private IEnumerator LerpAlpha() {
             var material = Utilities.GetMaterial(TargetGo);
 
             // Exit if material doesn't have color property.

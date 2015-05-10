@@ -16,7 +16,7 @@ namespace RendererUpdate {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty targetGo;
-        private SerializedProperty actionSlots;
+        private SerializedProperty action;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -27,24 +27,29 @@ namespace RendererUpdate {
 
             DrawVersionLabel();
             DrawTargetGoField();
-            DrawActionSlots();
+            HandleDrawActionDropdown();
 
             serializedObject.ApplyModifiedProperties();
         }
+
+        private void HandleDrawActionDropdown() {
+            EditorGUILayout.PropertyField(
+                action,
+                new GUIContent(
+                    "Action",
+                    ""));
+        }
+
         private void OnEnable() {
             Script = (MeshRendererUpdate)target;
 
             targetGo = serializedObject.FindProperty("targetGo");
-            actionSlots = serializedObject.FindProperty("actionSlots");
+            action = serializedObject.FindProperty("action");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR
-        private void DrawActionSlots() {
-            ReorderableListGUI.Title("Actions");
-            ReorderableListGUI.ListField(actionSlots);
-        }
 
         private void DrawTargetGoField() {
             EditorGUILayout.PropertyField(
