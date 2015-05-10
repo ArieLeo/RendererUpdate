@@ -42,18 +42,15 @@ namespace RendererUpdate {
             var action = prop.FindPropertyRelative("action");
             var renderingMode =
                 prop.FindPropertyRelative("renderingMode");
-            var lerpInValue =
-                prop.FindPropertyRelative("lerpInValue");
-            var lerpOutValue =
-                prop.FindPropertyRelative("lerpOutValue");
+            var lerpValue =
+                prop.FindPropertyRelative("lerpValue");
 
             DrawActionDropdown(pos, action);
             HandleDrawRenderingMode(pos, action, renderingMode);
-            HandleDrawLerpInValueField(pos, action, lerpInValue);
-            HandleDrawLerpOutValueField(pos, action, lerpOutValue);
+            HandleDrawLerpValueField(pos, action, lerpValue);
         }
 
-        private void HandleDrawLerpInValueField(
+        private void HandleDrawLerpValueField(
             Rect pos,
             SerializedProperty action,
             SerializedProperty lerpInValue) {
@@ -70,27 +67,6 @@ namespace RendererUpdate {
                     PropHeight),
                 new GUIContent("Lerp Value", "End value."),
                 lerpInValue.floatValue,
-                0,
-                1);
-        }
-
-        private void HandleDrawLerpOutValueField(
-            Rect pos,
-            SerializedProperty action,
-            SerializedProperty lerpOutValue) {
-
-            if (action.enumValueIndex != (int) RendererAction.LerpAlphaOut) {
-                return;
-            }
-
-            lerpOutValue.floatValue = EditorGUI.Slider(
-                new Rect(
-                    pos.x,
-                    pos.y + 1 * (PropHeight + PropMargin),
-                    pos.width,
-                    PropHeight),
-                new GUIContent("Lerp Value", "End value."),
-                lerpOutValue.floatValue,
                 0,
                 1);
         }

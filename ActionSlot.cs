@@ -13,10 +13,7 @@ namespace RendererUpdate {
         private BlendMode renderingMode;
 
         [SerializeField]
-        private float lerpInValue;
-
-        [SerializeField]
-        private float lerpOutValue;
+        private float lerpValue;
 
         public RendererAction Action {
             get { return action; }
@@ -31,17 +28,9 @@ namespace RendererUpdate {
         /// <summary>
         /// End alpha value in LerpAlphaIn mode.
         /// </summary>
-        public float LerpInValue {
-            get { return lerpInValue; }
-            set { lerpInValue = value; }
-        }
-
-        /// <summary>
-        /// End alpha value in LerpAlphaOut mode.
-        /// </summary>
-        public float LerpOutValue {
-            get { return lerpOutValue; }
-            set { lerpOutValue = value; }
+        public float LerpValue {
+            get { return lerpValue; }
+            set { lerpValue = value; }
         }
 
     }

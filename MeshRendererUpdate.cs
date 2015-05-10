@@ -96,7 +96,7 @@ namespace RendererUpdate {
                 case RendererAction.LerpAlphaIn:
                     Logger.LogCall(this);
 
-                    LerpAlpha(actionSlot.LerpInValue);
+                    LerpAlpha(actionSlot.LerpValue);
 
                     break;
             }
