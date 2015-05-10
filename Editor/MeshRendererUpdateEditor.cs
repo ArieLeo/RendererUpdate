@@ -42,28 +42,38 @@ namespace RendererUpdate {
 
             serializedObject.ApplyModifiedProperties();
         }
+        private void OnEnable() {
+            Script = (MeshRendererUpdate)target;
 
-        private void HandleDrawLerpFinishCallback() {
-            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
-                return;
-            }
-
-            EditorGUILayout.PropertyField(
-                lerpFinishCallback,
-                new GUIContent(
-                    "Callback",
-                    "Callback executed when lerp method ends."));
+            targetGo = serializedObject.FindProperty("targetGo");
+            action = serializedObject.FindProperty("action");
+            renderingMode = serializedObject.FindProperty("renderingMode");
+            lerpValue = serializedObject.FindProperty("lerpValue");
+            lerpSpeed = serializedObject.FindProperty("lerpSpeed");
+            lerpFinishCallback =
+                serializedObject.FindProperty("lerpFinishCallback");
         }
 
-        private void HandleDrawLerpSpeedValueField() {
-            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
+        #endregion UNITY MESSAGES
+
+        #region INSPECTOR
+        private void HandleDrawActionDropdown() {
+            EditorGUILayout.PropertyField(
+                action,
+                new GUIContent(
+                    "Action",
+                    ""));
+        }
+
+        private void HandleDrawRenderingModeDropdown() {
+            if (action.enumValueIndex != (int)RendererAction.SetRenderingMode) {
                 return;
             }
 
             EditorGUILayout.PropertyField(
-                lerpSpeed,
+                renderingMode,
                 new GUIContent(
-                    "Lerp Speed",
+                    "Rendering Mode",
                     ""));
         }
 
@@ -81,41 +91,30 @@ namespace RendererUpdate {
                 1);
         }
 
-        private void HandleDrawRenderingModeDropdown() {
-            if (action.enumValueIndex != (int)RendererAction.SetRenderingMode) {
+        private void HandleDrawLerpSpeedValueField() {
+            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
                 return;
             }
 
             EditorGUILayout.PropertyField(
-                renderingMode,
+                lerpSpeed,
                 new GUIContent(
-                    "Rendering Mode",
+                    "Lerp Speed",
                     ""));
         }
 
-        private void HandleDrawActionDropdown() {
+        private void HandleDrawLerpFinishCallback() {
+            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
+                return;
+            }
+
             EditorGUILayout.PropertyField(
-                action,
+                lerpFinishCallback,
                 new GUIContent(
-                    "Action",
-                    ""));
+                    "Callback",
+                    "Callback executed when lerp method ends."));
         }
 
-        private void OnEnable() {
-            Script = (MeshRendererUpdate)target;
-
-            targetGo = serializedObject.FindProperty("targetGo");
-            action = serializedObject.FindProperty("action");
-            renderingMode = serializedObject.FindProperty("renderingMode");
-            lerpValue = serializedObject.FindProperty("lerpValue");
-            lerpSpeed = serializedObject.FindProperty("lerpSpeed");
-            lerpFinishCallback =
-                serializedObject.FindProperty("lerpFinishCallback");
-        }
-
-        #endregion UNITY MESSAGES
-
-        #region INSPECTOR
 
         private void DrawTargetGoField() {
             EditorGUILayout.PropertyField(
