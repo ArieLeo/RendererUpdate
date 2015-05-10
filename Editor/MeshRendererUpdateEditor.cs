@@ -18,6 +18,8 @@ namespace RendererUpdate {
         private SerializedProperty targetGo;
         private SerializedProperty action;
         private SerializedProperty renderingMode;
+        private SerializedProperty lerpValue;
+        private SerializedProperty lerpSpeed;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -30,8 +32,34 @@ namespace RendererUpdate {
             DrawTargetGoField();
             HandleDrawActionDropdown();
             HandleDrawRenderingModeDropdown();
+            HandleDrawLerpValueSlider();
+            HandleDrawLerpSpeedValueSlider();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void HandleDrawLerpSpeedValueSlider() {
+            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                lerpSpeed,
+                new GUIContent(
+                    "Lerp Speed",
+                    ""));
+        }
+
+        private void HandleDrawLerpValueSlider() {
+            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                lerpValue,
+                new GUIContent(
+                    "Lerp Value",
+                    ""));
         }
 
         private void HandleDrawRenderingModeDropdown() {
@@ -60,6 +88,8 @@ namespace RendererUpdate {
             targetGo = serializedObject.FindProperty("targetGo");
             action = serializedObject.FindProperty("action");
             renderingMode = serializedObject.FindProperty("renderingMode");
+            lerpValue = serializedObject.FindProperty("lerpValue");
+            lerpSpeed = serializedObject.FindProperty("lerpSpeed");
         }
 
         #endregion UNITY MESSAGES

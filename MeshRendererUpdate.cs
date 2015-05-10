@@ -107,6 +107,7 @@ namespace RendererUpdate {
 
         private void Update() { }
 
+        // todo limit lerp value and speed
         private void Validate() { }
         #endregion
 
