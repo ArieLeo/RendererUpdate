@@ -16,7 +16,6 @@ namespace RendererUpdate {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty targetGo;
-        private SerializedProperty rendererType;
         private SerializedProperty actionSlots;
 
         #endregion SERIALIZED PROPERTIES
@@ -28,7 +27,6 @@ namespace RendererUpdate {
 
             DrawVersionLabel();
             DrawTargetGoField();
-            DrawRendererTypeDropdown();
             DrawActionSlots();
 
             serializedObject.ApplyModifiedProperties();
@@ -37,7 +35,6 @@ namespace RendererUpdate {
             Script = (MeshRendererUpdate)target;
 
             targetGo = serializedObject.FindProperty("targetGo");
-            rendererType = serializedObject.FindProperty("rendererType");
             actionSlots = serializedObject.FindProperty("actionSlots");
         }
 
@@ -56,15 +53,6 @@ namespace RendererUpdate {
                     "Target",
                     "Game object that contains the renderer to update."));
         }
-
-        private void DrawRendererTypeDropdown() {
-            EditorGUILayout.PropertyField(
-                rendererType,
-                new GUIContent(
-                    "Renderer Type",
-                    "Type of the renderer component."));
-        }
-
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(

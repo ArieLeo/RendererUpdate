@@ -25,9 +25,6 @@ namespace RendererUpdate {
         private GameObject targetGo;
 
         [SerializeField]
-        private RendererType rendererType;
-
-        [SerializeField]
         private List<ActionSlot> actionSlots; 
 
         #endregion
@@ -39,11 +36,6 @@ namespace RendererUpdate {
         public GameObject TargetGo {
             get { return targetGo; }
             set { targetGo = value; }
-        }
-
-        public RendererType RendererType {
-            get { return rendererType; }
-            set { rendererType = value; }
         }
 
         public List<ActionSlot> ActionSlots {
@@ -87,19 +79,10 @@ namespace RendererUpdate {
         }
 
         private void PerformAction(ActionSlot actionSlot) {
-            Logger.LogCall();
-            switch (RendererType) {
-                case RendererType.MeshRenderer:
-                    HandleMeshRenderer(actionSlot);
-                    break;
-            }
-        }
-
-        private void HandleMeshRenderer(ActionSlot actionSlot) {
             switch (actionSlot.Action) {
                 case RendererAction.SetRenderingMode:
                     // todo extract
-                    var material = GetMaterial(TargetGo, RendererType);
+                    var material = GetMaterial(TargetGo);
 
                     Utilities.SetupMaterialWithBlendMode(
                         material,
@@ -109,19 +92,12 @@ namespace RendererUpdate {
             }
         }
 
-        private static Material GetMaterial(
-            GameObject targetGo,
-            RendererType rendererType) {
-            switch (rendererType) {
+        // todo move to Utilities
+        private static Material GetMaterial(GameObject targetGo) {
+            var rendererCo = targetGo.GetComponent<MeshRenderer>();
+            var material = rendererCo.material;
 
-                case RendererType.MeshRenderer:
-                    var rendererCo = targetGo.GetComponent<MeshRenderer>();
-                    var material = rendererCo.material;
-
-                    return material;
-            }
-
-            return null;
+            return material;
         }
 
         #endregion
