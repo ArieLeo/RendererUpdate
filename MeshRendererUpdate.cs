@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using FileLogger;
 using uFAction;
+using UnityEngine.Events;
 using Vexe.Runtime.Extensions;
 
 namespace RendererUpdate {
@@ -29,7 +30,7 @@ namespace RendererUpdate {
         private GameObject targetGo;
 
         [SerializeField]
-        private List<ActionSlot> actionSlots; 
+        private List<ActionSlot> actionSlots;
 
         #endregion
 
@@ -93,6 +94,7 @@ namespace RendererUpdate {
                     Logger.LogCall(this);
 
                     StartCoroutine(LerpAlpha(
+                        actionSlot.LerpFinishCallback,
                         actionSlot.LerpValue,
                         actionSlot.LerpSpeed));
 
@@ -113,7 +115,9 @@ namespace RendererUpdate {
         /// </summary>
         /// <param name="lerpValue"></param>
         /// <returns></returns>
-        private IEnumerator LerpAlpha(float lerpValue, float lerpSpeed) {
+        private IEnumerator LerpAlpha(
+            UnityEvent lerpFinishCallback,
+            float lerpValue, float lerpSpeed) {
             var material = Utilities.GetMaterial(TargetGo);
 
             // Exit if material doesn't have color property.
@@ -142,6 +146,8 @@ namespace RendererUpdate {
 
                 yield return null;
             }
+
+            lerpFinishCallback.Invoke();
         }
 
         #endregion

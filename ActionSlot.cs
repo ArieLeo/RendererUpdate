@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 namespace RendererUpdate {
@@ -17,6 +18,13 @@ namespace RendererUpdate {
 
         [SerializeField]
         private float lerpSpeed;
+
+        /// <summary>
+        /// Callback executed when <c>LerpAlpha</c> coroutine ends its
+        /// execution by itself.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent lerpFinishCallback; 
 
         public RendererAction Action {
             get { return action; }
@@ -39,6 +47,11 @@ namespace RendererUpdate {
         public float LerpSpeed {
             get { return lerpSpeed; }
             set { lerpSpeed = value; }
+        }
+
+        public UnityEvent LerpFinishCallback {
+            get { return lerpFinishCallback; }
+            set { lerpFinishCallback = value; }
         }
 
     }
