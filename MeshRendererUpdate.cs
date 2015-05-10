@@ -86,12 +86,7 @@ namespace RendererUpdate {
             switch (actionSlot.Action) {
                 case RendererAction.SetRenderingMode:
                     Logger.LogCall(this);
-                    // todo extract
-                    material = Utilities.GetMaterial(TargetGo);
-
-                    Utilities.SetupMaterialWithBlendMode(
-                        material,
-                        actionSlot.RenderingMode);
+                    ApplyRenderingMode(actionSlot.RenderingMode);
 
                     break;
                 case RendererAction.LerpAlphaIn:
@@ -101,6 +96,16 @@ namespace RendererUpdate {
 
                     break;
             }
+        }
+
+        private void ApplyRenderingMode(BlendMode renderingMode) {
+
+            Material material;
+            material = Utilities.GetMaterial(TargetGo);
+
+            Utilities.SetupMaterialWithBlendMode(
+                material,
+                renderingMode);
         }
 
         /// <summary>
