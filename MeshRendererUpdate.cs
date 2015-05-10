@@ -16,6 +16,7 @@ namespace RendererUpdate {
 
         public const string VERSION = "v0.1.0";
         public const string EXTENSION = "RendererUpdate";
+        public const float FloatPrecision = 0.01f;
 
         #endregion
 
@@ -126,7 +127,7 @@ namespace RendererUpdate {
                 endValueReached = Utilities.FloatsEqual(
                     material.color.a,
                     lerpValue,
-                    lerpSpeed);
+                    FloatPrecision);
 
                  var lerpedAlpha = Mathf.Lerp(
                     material.color.a,
