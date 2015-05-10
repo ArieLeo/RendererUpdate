@@ -125,6 +125,7 @@ namespace RendererUpdate {
                 endValueReached = Utilities.FloatsEqual(
                     material.color.a,
                     lerpValue,
+                    // todo create inspector field: Lerp Speed
                     0.01f);
 
                  var lerpedAlpha = Mathf.Lerp(

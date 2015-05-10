@@ -15,6 +15,9 @@ namespace RendererUpdate {
         [SerializeField]
         private float lerpValue;
 
+        [SerializeField]
+        private float lerpSpeed;
+
         public RendererAction Action {
             get { return action; }
             set { action = value; }
@@ -31,6 +34,11 @@ namespace RendererUpdate {
         public float LerpValue {
             get { return lerpValue; }
             set { lerpValue = value; }
+        }
+
+        public float LerpSpeed {
+            get { return lerpSpeed; }
+            set { lerpSpeed = value; }
         }
 
     }

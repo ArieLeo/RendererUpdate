@@ -18,7 +18,7 @@ namespace RendererUpdate {
         private const int RowSpace = 8;
 
         // Number of rows.
-        private const int Rows = 2;
+        private const int Rows = 3;
 
         #endregion
 
@@ -40,14 +40,35 @@ namespace RendererUpdate {
             GUIContent label) {
 
             var action = prop.FindPropertyRelative("action");
-            var renderingMode =
-                prop.FindPropertyRelative("renderingMode");
-            var lerpValue =
-                prop.FindPropertyRelative("lerpValue");
+            var renderingMode = prop.FindPropertyRelative("renderingMode");
+            var lerpValue = prop.FindPropertyRelative("lerpValue");
+            var lerpSpeed = prop.FindPropertyRelative("lerpSpeed");
 
             DrawActionDropdown(pos, action);
             HandleDrawRenderingMode(pos, action, renderingMode);
             HandleDrawLerpValueField(pos, action, lerpValue);
+            HandleDrawLerpSpeedField(pos, action, lerpSpeed);
+        }
+
+        private void HandleDrawLerpSpeedField(
+            Rect pos,
+            SerializedProperty action,
+            SerializedProperty lerpSpeed) {
+
+            if (action.enumValueIndex != (int) RendererAction.LerpAlphaIn) {
+                return;
+            }
+
+            lerpSpeed.floatValue = EditorGUI.Slider(
+                new Rect(
+                    pos.x,
+                    pos.y + 2 * (PropHeight + PropMargin),
+                    pos.width,
+                    PropHeight),
+                new GUIContent("Lerp Speed", ""),
+                lerpSpeed.floatValue,
+                0,
+                1);
         }
 
         private void HandleDrawLerpValueField(
