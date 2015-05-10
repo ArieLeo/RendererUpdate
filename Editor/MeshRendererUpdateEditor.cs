@@ -35,6 +35,9 @@ namespace RendererUpdate {
             HandleDrawRenderingModeDropdown();
             HandleDrawLerpValueSlider();
             HandleDrawLerpSpeedValueField();
+
+            EditorGUILayout.Space();
+
             HandleDrawLerpFinishCallback();
 
             serializedObject.ApplyModifiedProperties();
@@ -64,17 +67,18 @@ namespace RendererUpdate {
                     ""));
         }
 
-        // todo make slider
         private void HandleDrawLerpValueSlider() {
             if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
                 return;
             }
 
-            EditorGUILayout.PropertyField(
-                lerpValue,
+            lerpValue.floatValue = EditorGUILayout.Slider(
                 new GUIContent(
                     "Lerp Value",
-                    ""));
+                    ""),
+                lerpValue.floatValue,
+                0,
+                1);
         }
 
         private void HandleDrawRenderingModeDropdown() {
