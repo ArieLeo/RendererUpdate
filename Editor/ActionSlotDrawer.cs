@@ -71,7 +71,7 @@ namespace RendererUpdate {
                 new GUIContent("Lerp Value", "End value."),
                 lerpInValue.floatValue,
                 0,
-                255);
+                1);
         }
 
         private void HandleDrawLerpOutValueField(
@@ -92,7 +92,7 @@ namespace RendererUpdate {
                 new GUIContent("Lerp Value", "End value."),
                 lerpOutValue.floatValue,
                 0,
-                255);
+                1);
         }
 
         private void HandleDrawRenderingMode(
