@@ -103,8 +103,7 @@ namespace RendererUpdate {
             }
         }
 
-        // todo rename param to lerpValue
-        private IEnumerator LerpAlpha(float lerpToValue) {
+        private IEnumerator LerpAlpha(float lerpValue) {
             var material = GetMaterial(TargetGo);
             var endValueAchieved = false;
 
@@ -115,12 +114,12 @@ namespace RendererUpdate {
 
                 endValueAchieved = Utilities.FloatsEqual(
                     material.color.a,
-                    lerpToValue,
+                    lerpValue,
                     0.01f);
 
                  var lerpedAlpha = Mathf.Lerp(
                     material.color.a,
-                    lerpToValue,
+                    lerpValue,
                     // todo create inspector field: Lerp Speed
                     0.01f);
 
