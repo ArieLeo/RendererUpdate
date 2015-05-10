@@ -107,8 +107,12 @@ namespace RendererUpdate {
 
         private void Update() { }
 
-        // todo limit lerp speed
-        private void Validate() { }
+        private void OnValidate() {
+            // Limit lerp speed.
+            if (LerpSpeed < 0) {
+                LerpSpeed = 0;
+            }
+        }
         #endregion
 
         #region EVENT INVOCATORS
