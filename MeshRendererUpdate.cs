@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using FileLogger;
 using uFAction;
+using Vexe.Runtime.Extensions;
 
 namespace RendererUpdate {
 
@@ -81,8 +82,6 @@ namespace RendererUpdate {
         }
 
         private void PerformAction(ActionSlot actionSlot) {
-            Material material;
-
             switch (actionSlot.Action) {
                 case RendererAction.SetRenderingMode:
                     Logger.LogCall(this);
@@ -101,9 +100,7 @@ namespace RendererUpdate {
         }
 
         private void ApplyRenderingMode(BlendMode renderingMode) {
-
-            Material material;
-            material = Utilities.GetMaterial(TargetGo);
+            var material = Utilities.GetMaterial(TargetGo);
 
             Utilities.SetupMaterialWithBlendMode(
                 material,
@@ -117,7 +114,9 @@ namespace RendererUpdate {
         /// <returns></returns>
         private IEnumerator LerpAlpha(float lerpValue, float lerpSpeed) {
             var material = Utilities.GetMaterial(TargetGo);
-            var endValueReached = false;
+
+            // Exit if material doesn't have color property.
+            var endValueReached = !material.HasProperty("_Color");
 
             while (!endValueReached) {
                 Logger.LogString("{1}, lerp alpha: {0}",
