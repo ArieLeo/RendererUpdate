@@ -17,6 +17,7 @@ namespace RendererUpdate {
 
         private SerializedProperty targetGo;
         private SerializedProperty action;
+        private SerializedProperty renderingMode;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -28,8 +29,21 @@ namespace RendererUpdate {
             DrawVersionLabel();
             DrawTargetGoField();
             HandleDrawActionDropdown();
+            HandleDrawRenderingModeDropdown();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void HandleDrawRenderingModeDropdown() {
+            if (action.enumValueIndex != (int)RendererAction.SetRenderingMode) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                renderingMode,
+                new GUIContent(
+                    "Rendering Mode",
+                    ""));
         }
 
         private void HandleDrawActionDropdown() {
@@ -45,6 +59,7 @@ namespace RendererUpdate {
 
             targetGo = serializedObject.FindProperty("targetGo");
             action = serializedObject.FindProperty("action");
+            renderingMode = serializedObject.FindProperty("renderingMode");
         }
 
         #endregion UNITY MESSAGES
