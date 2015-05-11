@@ -30,7 +30,7 @@ namespace RendererUpdate {
         /// <param name="target"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public delegate float LerpMethod(
+        public delegate float Lerp(
             float current,
             float target,
             float speed);
@@ -96,7 +96,7 @@ namespace RendererUpdate {
             set { lerpSpeed = value; }
         }
 
-        public LerpMethod LerpMethodHandler { get; set; }
+        public Lerp LerpHandler { get; set; }
 
         /// <summary>
         /// Callback executed when <c>LerpAlpha</c> coroutine ends its
@@ -113,7 +113,7 @@ namespace RendererUpdate {
 
         private void Awake() {
             // todo assign with inspector dropdown
-            LerpMethodHandler = Mathf.MoveTowards;
+            LerpHandler = Mathf.MoveTowards;
         }
 
         private void FixedUpdate() { }
@@ -158,7 +158,7 @@ namespace RendererUpdate {
                 case RendererAction.LerpAlpha:
                     Logger.LogCall(this);
 
-                    StartCoroutine(LerpAlpha(LerpMethodHandler));
+                    StartCoroutine(LerpAlpha(LerpHandler));
 
                     break;
             }
@@ -176,7 +176,7 @@ namespace RendererUpdate {
         /// Lerp alpha of the renderer's material to a specified value.
         /// </summary>
         /// <returns></returns>
-        private IEnumerator LerpAlpha(LerpMethod lerpMethod) {
+        private IEnumerator LerpAlpha(Lerp lerp) {
             var material = Utilities.GetMaterial(TargetGo);
 
             // Exit if material doesn't have color property.
@@ -197,7 +197,7 @@ namespace RendererUpdate {
                  //   lerpValue,
                  //   lerpSpeed * Time.deltaTime);
 
-                 var lerpedAlpha = lerpMethod(
+                 var lerpedAlpha = lerp(
                     material.color.a,
                     lerpValue,
                     lerpSpeed * Time.deltaTime);
