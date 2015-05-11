@@ -21,6 +21,7 @@ namespace RendererUpdate {
         private SerializedProperty lerpValue;
         private SerializedProperty lerpSpeed;
         private SerializedProperty lerpFinishCallback;
+        private SerializedProperty lerpMethod;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -35,6 +36,7 @@ namespace RendererUpdate {
             HandleDrawRenderingModeDropdown();
             HandleDrawLerpValueSlider();
             HandleDrawLerpSpeedValueField();
+            HandleDrawLerpMethodDropdown();
 
             EditorGUILayout.Space();
 
@@ -42,6 +44,19 @@ namespace RendererUpdate {
 
             serializedObject.ApplyModifiedProperties();
         }
+
+        private void HandleDrawLerpMethodDropdown() {
+            if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                lerpMethod,
+                new GUIContent(
+                    "Lerp Method",
+                    "Method used to lerp values."));
+        }
+
         private void OnEnable() {
             Script = (MeshRendererUpdate)target;
 
@@ -52,6 +67,7 @@ namespace RendererUpdate {
             lerpSpeed = serializedObject.FindProperty("lerpSpeed");
             lerpFinishCallback =
                 serializedObject.FindProperty("lerpFinishCallback");
+            lerpMethod = serializedObject.FindProperty("lerpMethod");
         }
 
         #endregion UNITY MESSAGES

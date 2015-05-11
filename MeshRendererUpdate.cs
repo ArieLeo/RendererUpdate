@@ -11,6 +11,9 @@ using Vexe.Runtime.Extensions;
 
 namespace RendererUpdate {
 
+    // todo move to file
+    public enum LerpMethod { Lerp, MoveTowards }
+
     public sealed class MeshRendererUpdate : MonoBehaviour {
 
         #region CONSTANTS
@@ -66,7 +69,13 @@ namespace RendererUpdate {
         /// execution by itself.
         /// </summary>
         [SerializeField]
-        private UnityEvent lerpFinishCallback; 
+        private UnityEvent lerpFinishCallback;
+
+        /// <summary>
+        /// Method used to lerp values.
+        /// </summary>
+        [SerializeField]
+        private LerpMethod lerpMethod;
 
         #endregion
 
@@ -105,6 +114,11 @@ namespace RendererUpdate {
         public UnityEvent LerpFinishCallback {
             get { return lerpFinishCallback; }
             set { lerpFinishCallback = value; }
+        }
+
+        public LerpMethod Method {
+            get { return lerpMethod; }
+            set { lerpMethod = value; }
         }
 
         #endregion
