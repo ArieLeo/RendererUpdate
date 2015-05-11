@@ -126,8 +126,19 @@ namespace RendererUpdate {
         #region UNITY MESSAGES
 
         private void Awake() {
-            // todo assign with inspector dropdown
-            LerpHandler = Mathf.MoveTowards;
+            SelectLerpMethod();
+        }
+
+        private void SelectLerpMethod() {
+
+            switch (LerpMethod) {
+                case LerpMethod.Lerp:
+                    LerpHandler = Mathf.Lerp;
+                    break;
+                case LerpMethod.MoveTowards:
+                    LerpHandler = Mathf.MoveTowards;
+                    break;
+            }
         }
 
         private void FixedUpdate() { }
