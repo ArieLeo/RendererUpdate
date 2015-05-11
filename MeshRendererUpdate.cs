@@ -11,9 +11,6 @@ using Vexe.Runtime.Extensions;
 
 namespace RendererUpdate {
 
-    // todo move to file
-    public enum LerpMethod { Lerp, MoveTowards }
-
     public sealed class MeshRendererUpdate : MonoBehaviour {
 
         #region CONSTANTS
