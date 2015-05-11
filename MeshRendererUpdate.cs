@@ -21,6 +21,22 @@ namespace RendererUpdate {
 
         #endregion
 
+        #region DELEGATES
+
+        /// <summary>
+        /// Method used to lerp values.
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public delegate float LerpMethod(
+            float current,
+            float target,
+            float speed);
+
+        #endregion
+
         #region EVENTS
         #endregion
 
@@ -80,6 +96,8 @@ namespace RendererUpdate {
             set { lerpSpeed = value; }
         }
 
+        public LerpMethod LerpMethodHandler { get; set; }
+
         /// <summary>
         /// Callback executed when <c>LerpAlpha</c> coroutine ends its
         /// execution by itself.
@@ -93,7 +111,10 @@ namespace RendererUpdate {
 
         #region UNITY MESSAGES
 
-        private void Awake() { }
+        private void Awake() {
+            // todo assign with inspector dropdown
+            LerpMethodHandler = Mathf.MoveTowards;
+        }
 
         private void FixedUpdate() { }
 
@@ -137,7 +158,7 @@ namespace RendererUpdate {
                 case RendererAction.LerpAlpha:
                     Logger.LogCall(this);
 
-                    StartCoroutine(LerpAlpha());
+                    StartCoroutine(LerpAlpha(LerpMethodHandler));
 
                     break;
             }
@@ -154,9 +175,8 @@ namespace RendererUpdate {
         /// <summary>
         /// Lerp alpha of the renderer's material to a specified value.
         /// </summary>
-        /// <param name="lerpValue"></param>
         /// <returns></returns>
-        private IEnumerator LerpAlpha() {
+        private IEnumerator LerpAlpha(LerpMethod lerpMethod) {
             var material = Utilities.GetMaterial(TargetGo);
 
             // Exit if material doesn't have color property.
@@ -172,7 +192,12 @@ namespace RendererUpdate {
                     lerpValue,
                     FloatPrecision);
 
-                 var lerpedAlpha = Mathf.Lerp(
+                 //var lerpedAlpha = Mathf.Lerp(
+                 //   material.color.a,
+                 //   lerpValue,
+                 //   lerpSpeed * Time.deltaTime);
+
+                 var lerpedAlpha = lerpMethod(
                     material.color.a,
                     lerpValue,
                     lerpSpeed * Time.deltaTime);
