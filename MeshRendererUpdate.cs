@@ -116,7 +116,7 @@ namespace RendererUpdate {
             set { lerpFinishCallback = value; }
         }
 
-        public LerpMethod Method {
+        public LerpMethod LerpMethod {
             get { return lerpMethod; }
             set { lerpMethod = value; }
         }
