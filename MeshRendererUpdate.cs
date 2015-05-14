@@ -1,13 +1,8 @@
-﻿#define DEBUG_LOGGER
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using FileLogger;
-using uFAction;
 using UnityEngine.Events;
-using Vexe.Runtime.Extensions;
 
 namespace RendererUpdate {
 
@@ -173,12 +168,10 @@ namespace RendererUpdate {
         private void PerformAction() {
             switch (Action) {
                 case RendererAction.SetRenderingMode:
-                    Logger.LogCall(this);
                     ApplyRenderingMode(RenderingMode);
 
                     break;
                 case RendererAction.LerpAlpha:
-                    Logger.LogCall(this);
 
                     StartCoroutine(LerpAlpha(LerpHandler));
 
@@ -205,19 +198,10 @@ namespace RendererUpdate {
             var endValueReached = !material.HasProperty("_Color");
 
             while (!endValueReached) {
-                Logger.LogString("{1}, lerp alpha: {0}",
-                    material.color.a,
-                    endValueReached);
-
                 endValueReached = Utilities.FloatsEqual(
                     material.color.a,
                     lerpValue,
                     FloatPrecision);
-
-                 //var lerpedAlpha = Mathf.Lerp(
-                 //   material.color.a,
-                 //   lerpValue,
-                 //   lerpSpeed * Time.deltaTime);
 
                  var lerpedAlpha = lerp(
                     material.color.a,
