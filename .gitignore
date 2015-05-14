@@ -1,3 +1,6 @@
 *.meta
 *.suo
 *.sdf
+obj/
+Debug/
+*.user

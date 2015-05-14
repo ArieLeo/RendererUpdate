@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RendererUpdate", "RendererUpdate.vcxproj", "{FEADA556-EB6C-4991-BB95-6452888CEF20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RendererUpdate", "RendererUpdate.csproj", "{5F8598C4-A239-4CFB-9BC9-6F6FAA0B1828}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FEADA556-EB6C-4991-BB95-6452888CEF20}.Debug|Win32.ActiveCfg = Debug|Win32
-		{FEADA556-EB6C-4991-BB95-6452888CEF20}.Debug|Win32.Build.0 = Debug|Win32
-		{FEADA556-EB6C-4991-BB95-6452888CEF20}.Release|Win32.ActiveCfg = Release|Win32
-		{FEADA556-EB6C-4991-BB95-6452888CEF20}.Release|Win32.Build.0 = Release|Win32
+		{5F8598C4-A239-4CFB-9BC9-6F6FAA0B1828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8598C4-A239-4CFB-9BC9-6F6FAA0B1828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8598C4-A239-4CFB-9BC9-6F6FAA0B1828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8598C4-A239-4CFB-9BC9-6F6FAA0B1828}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
