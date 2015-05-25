@@ -2,13 +2,13 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RendererUpdate {
+namespace RendererUpdateEx {
 
-    [CustomEditor(typeof(MeshRendererUpdate))]
-    public sealed class MeshRendererUpdateEditor : Editor {
+    [CustomEditor(typeof(RendererUpdate))]
+    public sealed class RendererUpdateEditor : Editor {
         #region FIELDS
 
-        private MeshRendererUpdate Script { get; set; }
+        private RendererUpdate Script { get; set; }
 
         #endregion FIELDS
 
@@ -57,7 +57,7 @@ namespace RendererUpdate {
         }
 
         private void OnEnable() {
-            Script = (MeshRendererUpdate)target;
+            Script = (RendererUpdate)target;
 
             targetGo = serializedObject.FindProperty("targetGo");
             action = serializedObject.FindProperty("action");
@@ -143,8 +143,8 @@ namespace RendererUpdate {
             EditorGUILayout.LabelField(
                 string.Format(
                     "{0} ({1})",
-                    MeshRendererUpdate.VERSION,
-                    MeshRendererUpdate.EXTENSION));
+                    RendererUpdate.VERSION,
+                    RendererUpdate.EXTENSION));
         }
 
         #endregion INSPECTOR
@@ -154,7 +154,7 @@ namespace RendererUpdate {
         [MenuItem("Component/RendererUpdate")]
         private static void AddUpdaterComponent() {
             if (Selection.activeGameObject != null) {
-                Selection.activeGameObject.AddComponent(typeof(MeshRendererUpdate));
+                Selection.activeGameObject.AddComponent(typeof(RendererUpdate));
             }
         }
 

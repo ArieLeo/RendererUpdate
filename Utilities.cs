@@ -7,8 +7,9 @@ using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace RendererUpdate {
+namespace RendererUpdateEx {
 
+    // todo extract
     public enum InfoType {
 
         Warning,

@@ -1,4 +1,4 @@
-﻿namespace RendererUpdate {
+﻿namespace RendererUpdateEx {
 
     public enum BlendMode {
 

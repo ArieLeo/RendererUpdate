@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine.Events;
 
-namespace RendererUpdate {
+namespace RendererUpdateEx {
 
-    public sealed class MeshRendererUpdate : MonoBehaviour {
+    public sealed class RendererUpdate : MonoBehaviour {
 
         #region CONSTANTS
 
