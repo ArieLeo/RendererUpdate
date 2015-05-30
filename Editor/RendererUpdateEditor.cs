@@ -24,6 +24,7 @@ namespace RendererUpdateEx {
         private SerializedProperty mode;
         private SerializedProperty rendererTag;
         private SerializedProperty onStart;
+        private SerializedProperty albedoEffect;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -42,6 +43,7 @@ namespace RendererUpdateEx {
             HandleDrawTagField();
 
             HandleDrawActionDropdown();
+            HandleDrawAlbedoEffectDropdown();
             HandleDrawRenderingModeDropdown();
             HandleDrawLerpValueSlider();
             HandleDrawLerpSpeedValueField();
@@ -52,6 +54,20 @@ namespace RendererUpdateEx {
             HandleDrawLerpFinishCallback();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void HandleDrawAlbedoEffectDropdown() {
+            if (action.enumValueIndex 
+                != (int) RendererAction.ChangeAlbedoColor) {
+
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                albedoEffect,
+                new GUIContent(
+                    "Albedo Effect",
+                    "Action to perform on albedo color property."));
         }
 
         private void DrawOnStartToggle() {
@@ -87,6 +103,7 @@ namespace RendererUpdateEx {
             rendererTag =
                 serializedObject.FindProperty("rendererTag");
             onStart = serializedObject.FindProperty("onStart");
+            albedoEffect = serializedObject.FindProperty("albedoEffect");
         }
 
         #endregion UNITY MESSAGES

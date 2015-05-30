@@ -78,6 +78,9 @@ namespace RendererUpdateEx {
         [SerializeField]
         private bool onStart;
 
+        [SerializeField]
+        private AlbedoEffect albedoEffect;
+
         #endregion
 
         #region PROPERTIES
@@ -146,6 +149,11 @@ namespace RendererUpdateEx {
             set { onStart = value; }
         }
 
+        public AlbedoEffect AlbedoEffect {
+            get { return albedoEffect; }
+            set { albedoEffect = value; }
+        }
+
         #endregion
 
         #region UNITY MESSAGES
@@ -205,8 +213,10 @@ namespace RendererUpdateEx {
 
                     break;
                 case RendererAction.LerpAlpha:
-
                     StartCoroutine(LerpAlpha(LerpHandler));
+
+                    break;
+                case RendererAction.ChangeAlbedoColor:
 
                     break;
             }
