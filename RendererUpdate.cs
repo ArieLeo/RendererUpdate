@@ -75,6 +75,9 @@ namespace RendererUpdateEx {
         [SerializeField]
         private string rendererTag;
 
+        [SerializeField]
+        private bool onStart;
+
         #endregion
 
         #region PROPERTIES
@@ -133,6 +136,14 @@ namespace RendererUpdateEx {
         public string RendererTag {
             get { return rendererTag; }
             set { rendererTag = value; }
+        }
+
+        /// <summary>
+        /// If true, renderer will be update in the Start().
+        /// </summary>
+        public bool OnStart {
+            get { return onStart; }
+            set { onStart = value; }
         }
 
         #endregion

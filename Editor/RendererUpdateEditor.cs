@@ -23,6 +23,7 @@ namespace RendererUpdateEx {
         private SerializedProperty lerpMethod;
         private SerializedProperty mode;
         private SerializedProperty rendererTag;
+        private SerializedProperty onStart;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -36,6 +37,7 @@ namespace RendererUpdateEx {
             EditorGUILayout.Space();
 
             DrawModeDropdown();
+            DrawOnStartToggle();
             HandleDrawTargetGoField();
             HandleDrawTagField();
 
@@ -50,6 +52,14 @@ namespace RendererUpdateEx {
             HandleDrawLerpFinishCallback();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawOnStartToggle() {
+            EditorGUILayout.PropertyField(
+                onStart,
+                new GUIContent(
+                    "On Start",
+                    "If true, renderer will be update in Start()."));
         }
 
         private void HandleDrawTagField() {
@@ -76,6 +86,7 @@ namespace RendererUpdateEx {
             mode = serializedObject.FindProperty("mode");
             rendererTag =
                 serializedObject.FindProperty("rendererTag");
+            onStart = serializedObject.FindProperty("onStart");
         }
 
         #endregion UNITY MESSAGES
