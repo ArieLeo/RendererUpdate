@@ -55,39 +55,6 @@ namespace RendererUpdateEx {
 
             serializedObject.ApplyModifiedProperties();
         }
-
-        private void HandleDrawAlbedoEffectDropdown() {
-            if (action.enumValueIndex 
-                != (int) RendererAction.ChangeAlbedoColor) {
-
-                return;
-            }
-
-            EditorGUILayout.PropertyField(
-                albedoEffect,
-                new GUIContent(
-                    "Albedo Effect",
-                    "Action to perform on albedo color property."));
-        }
-
-        private void DrawOnStartToggle() {
-            EditorGUILayout.PropertyField(
-                onStart,
-                new GUIContent(
-                    "On Start",
-                    "If true, renderer will be update in Start()."));
-        }
-
-        private void HandleDrawTagField() {
-            if (mode.enumValueIndex != (int) Mode.Tag) return;
-
-            rendererTag.stringValue = EditorGUILayout.TagField(
-                new GUIContent(
-                    "Tag",
-                    ""),
-                rendererTag.stringValue);
-        }
-
         private void OnEnable() {
             Script = (RendererUpdate)target;
 
@@ -109,6 +76,38 @@ namespace RendererUpdateEx {
         #endregion UNITY MESSAGES
 
         #region INSPECTOR
+        private void HandleDrawTagField() {
+            if (mode.enumValueIndex != (int)Mode.Tag) return;
+
+            rendererTag.stringValue = EditorGUILayout.TagField(
+                new GUIContent(
+                    "Tag",
+                    ""),
+                rendererTag.stringValue);
+        }
+
+        private void DrawOnStartToggle() {
+            EditorGUILayout.PropertyField(
+                onStart,
+                new GUIContent(
+                    "On Start",
+                    "If true, renderer will be update in Start()."));
+        }
+
+        private void HandleDrawAlbedoEffectDropdown() {
+            if (action.enumValueIndex
+                != (int)RendererAction.ChangeAlbedoColor) {
+
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                albedoEffect,
+                new GUIContent(
+                    "Albedo Effect",
+                    "Action to perform on albedo color property."));
+        }
+
         private void HandleDrawLerpMethodDropdown() {
             if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
                 return;
