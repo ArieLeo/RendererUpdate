@@ -69,6 +69,9 @@ namespace RendererUpdateEx {
         [SerializeField]
         private LerpMethod lerpMethod;
 
+        [SerializeField]
+        private Mode mode;
+
         #endregion
 
         #region PROPERTIES
@@ -111,6 +114,14 @@ namespace RendererUpdateEx {
         public LerpMethod LerpMethod {
             get { return lerpMethod; }
             set { lerpMethod = value; }
+        }
+
+        /// <summary>
+        /// Specifies how to obtain the renderer reference.
+        /// </summary>
+        public Mode Mode {
+            get { return mode; }
+            set { mode = value; }
         }
 
         #endregion

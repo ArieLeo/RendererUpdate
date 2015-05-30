@@ -21,6 +21,7 @@ namespace RendererUpdateEx {
         private SerializedProperty lerpSpeed;
         private SerializedProperty lerpFinishCallback;
         private SerializedProperty lerpMethod;
+        private SerializedProperty mode;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -30,6 +31,10 @@ namespace RendererUpdateEx {
             serializedObject.Update();
 
             DrawVersionLabel();
+
+            EditorGUILayout.Space();
+
+            DrawModeDropdown();
             DrawTargetGoField();
             HandleDrawActionDropdown();
             HandleDrawRenderingModeDropdown();
@@ -43,7 +48,23 @@ namespace RendererUpdateEx {
 
             serializedObject.ApplyModifiedProperties();
         }
+        private void OnEnable() {
+            Script = (RendererUpdate)target;
 
+            targetGo = serializedObject.FindProperty("targetGo");
+            action = serializedObject.FindProperty("action");
+            renderingMode = serializedObject.FindProperty("renderingMode");
+            lerpValue = serializedObject.FindProperty("lerpValue");
+            lerpSpeed = serializedObject.FindProperty("lerpSpeed");
+            lerpFinishCallback =
+                serializedObject.FindProperty("lerpFinishCallback");
+            lerpMethod = serializedObject.FindProperty("lerpMethod");
+            mode = serializedObject.FindProperty("mode");
+        }
+
+        #endregion UNITY MESSAGES
+
+        #region INSPECTOR
         private void HandleDrawLerpMethodDropdown() {
             if (action.enumValueIndex != (int)RendererAction.LerpAlpha) {
                 return;
@@ -56,22 +77,15 @@ namespace RendererUpdateEx {
                     "Method used to lerp values."));
         }
 
-        private void OnEnable() {
-            Script = (RendererUpdate)target;
-
-            targetGo = serializedObject.FindProperty("targetGo");
-            action = serializedObject.FindProperty("action");
-            renderingMode = serializedObject.FindProperty("renderingMode");
-            lerpValue = serializedObject.FindProperty("lerpValue");
-            lerpSpeed = serializedObject.FindProperty("lerpSpeed");
-            lerpFinishCallback =
-                serializedObject.FindProperty("lerpFinishCallback");
-            lerpMethod = serializedObject.FindProperty("lerpMethod");
+        private void DrawModeDropdown() {
+            EditorGUILayout.PropertyField(
+                mode,
+                new GUIContent(
+                    "Mode",
+                    "Get renderer from reference, find by tag or " +
+                    "pass it in a method call."));
         }
 
-        #endregion UNITY MESSAGES
-
-        #region INSPECTOR
         private void HandleDrawActionDropdown() {
             EditorGUILayout.PropertyField(
                 action,
