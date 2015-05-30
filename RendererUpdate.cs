@@ -72,6 +72,9 @@ namespace RendererUpdateEx {
         [SerializeField]
         private Mode mode;
 
+        [SerializeField]
+        private string rendererTag;
+
         #endregion
 
         #region PROPERTIES
@@ -122,6 +125,14 @@ namespace RendererUpdateEx {
         public Mode Mode {
             get { return mode; }
             set { mode = value; }
+        }
+
+        /// <summary>
+        /// Tag used to find target renderer.
+        /// </summary>
+        public string RendererTag {
+            get { return rendererTag; }
+            set { rendererTag = value; }
         }
 
         #endregion

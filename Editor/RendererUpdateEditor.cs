@@ -22,6 +22,7 @@ namespace RendererUpdateEx {
         private SerializedProperty lerpFinishCallback;
         private SerializedProperty lerpMethod;
         private SerializedProperty mode;
+        private SerializedProperty rendererTag;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -35,7 +36,9 @@ namespace RendererUpdateEx {
             EditorGUILayout.Space();
 
             DrawModeDropdown();
-            DrawTargetGoField();
+            HandleDrawTargetGoField();
+            HandleDrawTagField();
+
             HandleDrawActionDropdown();
             HandleDrawRenderingModeDropdown();
             HandleDrawLerpValueSlider();
@@ -48,6 +51,17 @@ namespace RendererUpdateEx {
 
             serializedObject.ApplyModifiedProperties();
         }
+
+        private void HandleDrawTagField() {
+            if (mode.enumValueIndex != (int) Mode.Tag) return;
+
+            rendererTag.stringValue = EditorGUILayout.TagField(
+                new GUIContent(
+                    "Tag",
+                    ""),
+                rendererTag.stringValue);
+        }
+
         private void OnEnable() {
             Script = (RendererUpdate)target;
 
@@ -60,6 +74,8 @@ namespace RendererUpdateEx {
                 serializedObject.FindProperty("lerpFinishCallback");
             lerpMethod = serializedObject.FindProperty("lerpMethod");
             mode = serializedObject.FindProperty("mode");
+            rendererTag =
+                serializedObject.FindProperty("rendererTag");
         }
 
         #endregion UNITY MESSAGES
@@ -145,7 +161,9 @@ namespace RendererUpdateEx {
         }
 
 
-        private void DrawTargetGoField() {
+        private void HandleDrawTargetGoField() {
+            if (mode.enumValueIndex != (int) Mode.Reference) return;
+
             EditorGUILayout.PropertyField(
                 targetGo,
                 new GUIContent(
