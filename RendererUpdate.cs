@@ -206,6 +206,32 @@ namespace RendererUpdateEx {
             HandleRendererAction();
         }
 
+        // todo refactor
+        public void UpdateRenderer(GameObject go) {
+            var material = Utilities.GetMaterial(go);
+            var startColor = Color.green;
+            var endColor = Color.red;
+            var duration = 1f;
+
+            var lerp = Mathf.PingPong(Time.time, duration) / duration;
+            material.color = Color.Lerp(startColor, endColor, lerp);
+        }
+
+        public void UpdateRenderer(RaycastHit hitInfo) {
+            var go = hitInfo.transform.gameObject;
+            var material = Utilities.GetMaterial(go);
+
+            if (material == null) return;
+
+            var startColor = Color.green;
+            var endColor = Color.red;
+            var duration = 1f;
+
+            var lerp = Mathf.PingPong(Time.time, duration) / duration;
+            //material.color = Color.Lerp(startColor, endColor, lerp);
+            material.color = Color.red;
+        }
+
         private void HandleRendererAction() {
             switch (Action) {
                 case RendererAction.SetRenderingMode:

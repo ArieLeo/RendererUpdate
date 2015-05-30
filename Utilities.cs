@@ -161,9 +161,11 @@ namespace RendererUpdateEx {
         }
 
         public static Material GetMaterial(GameObject targetGo) {
-            var rendererCo = targetGo.GetComponent<MeshRenderer>();
-            var material = rendererCo.material;
+            var rendererCo = targetGo.GetComponent<Renderer>();
 
+            if (rendererCo == null) return null;
+
+            var material = rendererCo.material;
             return material;
         }
 
