@@ -195,10 +195,10 @@ namespace RendererUpdateEx {
         #region METHODS
 
         public void UpdateRenderer() {
-            PerformAction();
+            HandleRendererAction();
         }
 
-        private void PerformAction() {
+        private void HandleRendererAction() {
             switch (Action) {
                 case RendererAction.SetRenderingMode:
                     ApplyRenderingMode(RenderingMode);
