@@ -87,6 +87,8 @@ namespace RendererUpdateEx {
         }
 
         private void DrawOnStartToggle() {
+            if (mode.enumValueIndex == (int) Mode.MethodCall) return;
+
             EditorGUILayout.PropertyField(
                 onStart,
                 new GUIContent(
