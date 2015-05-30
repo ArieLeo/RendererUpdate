@@ -7,6 +7,8 @@
         // Lerp alpha to value.
         LerpAlpha,
 
+        ChangeAlbedoColor
+
     }
 
 }
