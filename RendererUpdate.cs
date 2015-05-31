@@ -10,7 +10,7 @@ namespace RendererUpdateEx {
 
         #region CONSTANTS
 
-        public const string VERSION = "v0.1.0";
+        public const string VERSION = "v0.2.0";
         public const string EXTENSION = "RendererUpdate";
         public const float FloatPrecision = 0.01f;
 
@@ -40,6 +40,15 @@ namespace RendererUpdateEx {
         [SerializeField]
         private GameObject targetGo;
 
+#pragma warning disable 0414
+        /// <summary>
+        ///     Allows identify component in the scene file when reading it with
+        ///     text editor.
+        /// </summary>
+        [SerializeField]
+        private string componentName = "MyClass";
+#pragma warning restore0414
+ 
         #endregion
 
         #region INSPECTOR FIELDS
@@ -90,6 +99,9 @@ namespace RendererUpdateEx {
         [SerializeField]
         private float duration;
 
+        [SerializeField]
+        private string description = "Description";
+ 
         #endregion
 
         #region PROPERTIES
@@ -176,6 +188,11 @@ namespace RendererUpdateEx {
         public float Duration {
             get { return duration; }
             set { duration = value; }
+        }
+
+        public string Description {
+            get { return description; }
+            set { description = value; }
         }
 
         #endregion

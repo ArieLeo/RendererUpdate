@@ -262,7 +262,7 @@ namespace RendererUpdateEx {
         #region METHODS
 
         [MenuItem("Component/RendererUpdate")]
-        private static void AddUpdaterComponent() {
+        private static void AddEntryToComponentMenu() {
             if (Selection.activeGameObject != null) {
                 Selection.activeGameObject.AddComponent(typeof(RendererUpdate));
             }
