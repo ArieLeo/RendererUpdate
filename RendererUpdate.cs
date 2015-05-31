@@ -10,7 +10,7 @@ namespace RendererUpdateEx {
 
         #region CONSTANTS
 
-        public const string VERSION = "v0.2.0";
+        public const string VERSION = "v0.1.0";
         public const string EXTENSION = "RendererUpdate";
         public const float FloatPrecision = 0.01f;
 
