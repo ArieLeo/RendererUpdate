@@ -29,6 +29,7 @@ namespace RendererUpdateEx {
         private SerializedProperty startColor;
         private SerializedProperty endColor;
         private SerializedProperty duration;
+        private SerializedProperty layerMask;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -58,6 +59,8 @@ namespace RendererUpdateEx {
             HandleDrawLerpSpeedValueField();
             HandleDrawLerpMethodDropdown();
 
+            DrawLayerMask();
+
             EditorGUILayout.Space();
 
             HandleDrawLerpFinishCallback();
@@ -84,11 +87,20 @@ namespace RendererUpdateEx {
             startColor = serializedObject.FindProperty("startColor");
             endColor = serializedObject.FindProperty("endColor");
             duration = serializedObject.FindProperty("duration");
+            layerMask = serializedObject.FindProperty("layerMask");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR
+        private void DrawLayerMask() {
+            layerMask.intValue = EditorGUILayout.LayerField(
+                new GUIContent(
+                    "Layer Mask",
+                    "Unselected layers will be omitted."),
+                    layerMask.intValue);
+        }
+
         private void HandleDrawStartColorPicker() {
             if (action.enumValueIndex != (int) RendererAction.ChangeAlbedoColor) {
                 return;

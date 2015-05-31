@@ -48,7 +48,10 @@ namespace RendererUpdateEx {
         [SerializeField]
         private string componentName = "MyClass";
 #pragma warning restore0414
- 
+
+        [SerializeField]
+        private LayerMask layerMask;
+
         #endregion
 
         #region INSPECTOR FIELDS
@@ -195,6 +198,11 @@ namespace RendererUpdateEx {
             set { description = value; }
         }
 
+        public LayerMask LayerMask {
+            get { return layerMask; }
+            set { layerMask = value; }
+        }
+
         #endregion
 
         #region UNITY MESSAGES
@@ -246,7 +254,11 @@ namespace RendererUpdateEx {
             HandleRendererAction();
         }
 
+        // todo this should be done through HandleRendererAction()
         public void UpdateRenderer(GameObject go) {
+            // Check hit object's layer.
+            if (go.layer != LayerMask.value) return;
+
             var material = Utilities.GetMaterial(go);
 
             if (material == null) return;
@@ -254,8 +266,13 @@ namespace RendererUpdateEx {
             StartCoroutine(PingPongAlbedo(material));
         }
 
+        // todo this should be done through HandleRendererAction()
         public void UpdateRenderer(RaycastHit hitInfo) {
             var go = hitInfo.transform.gameObject;
+
+            // Check hit object's layer.
+            if (go.layer != LayerMask.value) return;
+
             var material = Utilities.GetMaterial(go);
 
             if (material == null) return;
