@@ -200,11 +200,10 @@ namespace RendererUpdateEx {
         #region UNITY MESSAGES
 
         private void Awake() {
-            SelectLerpMethod();
+            HandleLerpMode();
         }
 
-        private void SelectLerpMethod() {
-
+        private void HandleLerpMode() {
             switch (LerpMethod) {
                 case LerpMethod.Lerp:
                     LerpHandler = Mathf.Lerp;
