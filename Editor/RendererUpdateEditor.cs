@@ -14,6 +14,7 @@ namespace RendererUpdateEx {
 
         #region SERIALIZED PROPERTIES
 
+        private SerializedProperty description;
         private SerializedProperty targetGo;
         private SerializedProperty action;
         private SerializedProperty renderingMode;
@@ -37,6 +38,7 @@ namespace RendererUpdateEx {
             serializedObject.Update();
 
             DrawVersionLabel();
+            DrawDescriptionTextArea();
 
             EditorGUILayout.Space();
 
@@ -65,6 +67,7 @@ namespace RendererUpdateEx {
         private void OnEnable() {
             Script = (RendererUpdate)target;
 
+            description = serializedObject.FindProperty("description");
             targetGo = serializedObject.FindProperty("targetGo");
             action = serializedObject.FindProperty("action");
             renderingMode = serializedObject.FindProperty("renderingMode");
@@ -257,6 +260,11 @@ namespace RendererUpdateEx {
                     RendererUpdate.EXTENSION));
         }
 
+        private void DrawDescriptionTextArea() {
+            description.stringValue = EditorGUILayout.TextArea(
+                description.stringValue);
+        }
+ 
         #endregion INSPECTOR
 
         #region METHODS
