@@ -223,13 +223,59 @@ namespace RendererUpdateEx {
 
             if (material == null) return;
 
-            var startColor = Color.green;
-            var endColor = Color.red;
-            var duration = 1f;
+            // todo show those field in the inspector
+            var startColor = Color.grey;
+            var endColor = Color.white;
+            var duration = 0.3f;
 
-            var lerp = Mathf.PingPong(Time.time, duration) / duration;
-            //material.color = Color.Lerp(startColor, endColor, lerp);
-            material.color = Color.red;
+            //StartCoroutine(LerpAlbedo(material, endColor));
+            StartCoroutine(PingPongAlbedo(
+                material,
+                startColor,
+                endColor,
+                duration));
+
+            //var lerp = Mathf.PingPong(Time.time, duration) / duration;
+            //material.color = Color.Lerp(startColor, endColor, Time.deltaTime);
+        }
+
+        private IEnumerator PingPongAlbedo(
+            Material material,
+            Color startColor,
+            Color endColor,
+            float duration) {
+
+            var time = 0f;
+            // Current material color.
+            //var startColor = material.color;
+
+            while (true) {
+                var lerp = Mathf.PingPong(time, duration);
+                material.color = Color.Lerp(startColor, endColor, lerp);
+
+                if (time >= duration * 2) break;
+
+                time += Time.deltaTime;
+
+                // Break when material color pongs back.
+                //if (material.color == startColor) break;
+
+                yield return null;
+            }
+        }
+
+
+        private IEnumerator LerpAlbedo(
+            Material material,
+            Color endColor) {
+
+            while (true) {
+                material.color = Color.Lerp(material.color, endColor, Time.deltaTime);
+
+                if (material.color == endColor) break;
+
+                yield return null;
+            }
         }
 
         private void HandleRendererAction() {
