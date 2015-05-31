@@ -25,6 +25,9 @@ namespace RendererUpdateEx {
         private SerializedProperty rendererTag;
         private SerializedProperty onStart;
         private SerializedProperty albedoEffect;
+        private SerializedProperty startColor;
+        private SerializedProperty endColor;
+        private SerializedProperty duration;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -44,6 +47,10 @@ namespace RendererUpdateEx {
 
             HandleDrawActionDropdown();
             HandleDrawAlbedoEffectDropdown();
+            HandleDrawStartColorPicker();
+            HandleDrawEndColorPicker();
+            HandleDrawDurationField();
+
             HandleDrawRenderingModeDropdown();
             HandleDrawLerpValueSlider();
             HandleDrawLerpSpeedValueField();
@@ -71,11 +78,53 @@ namespace RendererUpdateEx {
                 serializedObject.FindProperty("rendererTag");
             onStart = serializedObject.FindProperty("onStart");
             albedoEffect = serializedObject.FindProperty("albedoEffect");
+            startColor = serializedObject.FindProperty("startColor");
+            endColor = serializedObject.FindProperty("endColor");
+            duration = serializedObject.FindProperty("duration");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR
+        private void HandleDrawStartColorPicker() {
+            if (action.enumValueIndex != (int) RendererAction.ChangeAlbedoColor) {
+                return;
+            }
+            if (albedoEffect.enumValueIndex != (int) AlbedoEffect.PingPong) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                startColor,
+                new GUIContent(
+                    "Start Color",
+                    ""));
+        }
+
+        private void HandleDrawEndColorPicker() {
+            if (action.enumValueIndex != (int) RendererAction.ChangeAlbedoColor) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                endColor,
+                new GUIContent(
+                    "End Color",
+                    ""));
+        }
+
+        private void HandleDrawDurationField() {
+            if (action.enumValueIndex != (int) RendererAction.ChangeAlbedoColor) {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(
+                duration,
+                new GUIContent(
+                    "Duration",
+                    ""));
+        }
+
         private void HandleDrawTagField() {
             if (mode.enumValueIndex != (int)Mode.Tag) return;
 

@@ -81,6 +81,15 @@ namespace RendererUpdateEx {
         [SerializeField]
         private AlbedoEffect albedoEffect;
 
+        [SerializeField]
+        private Color startColor;
+
+        [SerializeField]
+        private Color endColor;
+
+        [SerializeField]
+        private float duration;
+
         #endregion
 
         #region PROPERTIES
@@ -154,6 +163,21 @@ namespace RendererUpdateEx {
             set { albedoEffect = value; }
         }
 
+        public Color StartColor {
+            get { return startColor; }
+            set { startColor = value; }
+        }
+
+        public Color EndColor {
+            get { return endColor; }
+            set { endColor = value; }
+        }
+
+        public float Duration {
+            get { return duration; }
+            set { duration = value; }
+        }
+
         #endregion
 
         #region UNITY MESSAGES
@@ -206,15 +230,12 @@ namespace RendererUpdateEx {
             HandleRendererAction();
         }
 
-        // todo refactor
         public void UpdateRenderer(GameObject go) {
             var material = Utilities.GetMaterial(go);
-            var startColor = Color.green;
-            var endColor = Color.red;
-            var duration = 1f;
 
-            var lerp = Mathf.PingPong(Time.time, duration) / duration;
-            material.color = Color.Lerp(startColor, endColor, lerp);
+            if (material == null) return;
+
+            StartCoroutine(PingPongAlbedo(material));
         }
 
         public void UpdateRenderer(RaycastHit hitInfo) {
@@ -223,56 +244,32 @@ namespace RendererUpdateEx {
 
             if (material == null) return;
 
-            // todo show those field in the inspector
-            var startColor = Color.grey;
-            var endColor = Color.white;
-            var duration = 0.3f;
-
-            //StartCoroutine(LerpAlbedo(material, endColor));
-            StartCoroutine(PingPongAlbedo(
-                material,
-                startColor,
-                endColor,
-                duration));
-
-            //var lerp = Mathf.PingPong(Time.time, duration) / duration;
-            //material.color = Color.Lerp(startColor, endColor, Time.deltaTime);
+            StartCoroutine(PingPongAlbedo(material));
         }
 
-        private IEnumerator PingPongAlbedo(
-            Material material,
-            Color startColor,
-            Color endColor,
-            float duration) {
-
+        private IEnumerator PingPongAlbedo(Material material) {
             var time = 0f;
-            // Current material color.
-            //var startColor = material.color;
 
             while (true) {
                 var lerp = Mathf.PingPong(time, duration);
                 material.color = Color.Lerp(startColor, endColor, lerp);
 
+                // Break after pong.
                 if (time >= duration * 2) break;
 
                 time += Time.deltaTime;
-
-                // Break when material color pongs back.
-                //if (material.color == startColor) break;
 
                 yield return null;
             }
         }
 
 
-        private IEnumerator LerpAlbedo(
-            Material material,
-            Color endColor) {
-
+        private IEnumerator LerpAlbedo(Material material) {
             while (true) {
-                material.color = Color.Lerp(material.color, endColor, Time.deltaTime);
+                material.color =
+                    Color.Lerp(material.color, EndColor, Time.deltaTime);
 
-                if (material.color == endColor) break;
+                if (material.color == EndColor) break;
 
                 yield return null;
             }
